@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transforming Education for Oyo's Future</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .presentation {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 60px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-title {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1a3a6b 100%);
+            /* display: flex;  Removed to prevent always-on background */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 80px;
+        }
+        
+        .slide-title h1 {
+            font-size: 3.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .slide-title .subtitle {
+            font-size: 1.8em;
+            font-weight: 300;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .slide-title .theme {
+            font-size: 1.3em;
+            font-style: italic;
+            padding: 20px 40px;
+            border: 2px solid white;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        h2 {
+            color: #2c5aa0;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            border-bottom: 4px solid #2c5aa0;
+            padding-bottom: 15px;
+        }
+        
+        h3 {
+            color: #4a4a4a;
+            font-size: 1.8em;
+            margin: 30px 0 20px 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        li {
+            font-size: 1.3em;
+            margin: 20px 0;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        li:before {
+            content: "▸";
+            color: #2c5aa0;
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 6px solid #ffc107;
+            font-size: 1.2em;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .stat-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #2c5aa0;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.1em;
+            color: #4a4a4a;
+        }
+        
+        .navigation {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .nav-btn {
+            background: #2c5aa0;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .nav-btn:hover {
+            background: #1a3a6b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.4);
+        }
+        
+        .nav-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            opacity: 0.5;
+        }
+        
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: rgba(44, 90, 160, 0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            color: #2c5aa0;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .framework-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .framework-title {
+            font-weight: bold;
+            color: #2e7d32;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .closing-slide {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1a3a6b 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .closing-slide h2 {
+            color: white;
+            border-bottom: 4px solid white;
+            font-size: 3em;
+        }
+        
+        .closing-statement {
+            font-size: 1.5em;
+            line-height: 1.8;
+            margin: 40px 0;
+            font-style: italic;
+        }
+        
+        .call-to-action {
+            font-size: 2em;
+            font-weight: bold;
+            margin-top: 50px;
+            padding: 30px;
+            border: 3px solid white;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Title -->
+        <div class="slide active slide-title">
+            <h1>Transforming Education</h1>
+            <div class="subtitle">Meeting the Demands of a Digital, Innovation-Driven Economy</div>
+            <div class="theme">Future-Ready Oyo State: Tech, Talent, and Transformation for a Thriving Tomorrow</div>
+        </div>
+
+        <!-- Slide 2: Context -->
+        <div class="slide">
+            <div class="slide-counter">2 / 15</div>
+            <h2>🎯 The Critical Reality</h2>
+            <div class="highlight-box">
+                <strong>"Education is not just one pillar of transformation—it is the FOUNDATION upon which all other pillars stand."</strong>
+            </div>
+            <ul>
+                <li>The workforce of tomorrow is being shaped in classrooms TODAY</li>
+                <li>Future entrepreneurs are currently students</li>
+                <li>Tomorrow's tech-driven leaders are learning now</li>
+                <li>Without transformed education, our digital economy dreams remain aspirational</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Question 1 Overview -->
+        <div class="slide">
+            <div class="slide-counter">3 / 15</div>
+            <h2>📱 Q1: Equitable Tech Integration</h2>
+            <h3>The Challenge</h3>
+            <p style="font-size: 1.3em; margin-bottom: 30px;">How can Oyo State integrate AI tutors and digital platforms without deepening inequalities?</p>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number">33</span>
+                    <span class="stat-label">Local Government Areas</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">Vision: Universal Access</span>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <strong>The Paradox:</strong> Technology can either be the great equalizer or the great divider. We must choose deliberately.
+            </div>
+        </div>
+
+        <!-- Slide 4: Three-Layer Model -->
+        <div class="slide">
+            <div class="slide-counter">4 / 15</div>
+            <h2>🔧 Three-Layer Integration Model</h2>
+            <div class="framework-box">
+                <div class="framework-title">Layer 1: Infrastructure Foundation</div>
+                <li>Universal Connectivity Initiative (subsidized edu-data)</li>
+                <li>Lease-to-own tablet programs</li>
+                <li>Solar-powered digital learning centers in rural areas</li>
+            </div>
+            <div class="framework-box">
+                <div class="framework-title">Layer 2: Content Democratization</div>
+                <li>AI tutors in Yoruba first, English second</li>
+                <li>Offline-capable learning platforms</li>
+                <li>Open Educational Resources (OER) for all schools</li>
+            </div>
+            <div class="framework-box">
+                <div class="framework-title">Layer 3: Teacher Capacity</div>
+                <li>Train 10,000 teachers in digital pedagogy (2 years)</li>
+                <li>AI co-teaching assistants for routine tasks</li>
+                <li>Incentives for skilled teachers in remote areas</li>
+            </div>
+        </div>
+
+        <!-- Slide 5: Question 2 Overview -->
+        <div class="slide">
+            <div class="slide-counter">5 / 15</div>
+            <h2>🎓 Q2: Urgent Structural Reforms</h2>
+            <h3>The Current Mismatch</h3>
+            <div class="highlight-box">
+                We're preparing students for jobs that are disappearing while new opportunities go unfilled.
+            </div>
+            <h3>The 70-20-10 Curriculum Revolution</h3>
+            <ul>
+                <li><strong>70%</strong> Project-Based, Experiential Learning</li>
+                <li><strong>20%</strong> Core Knowledge & Theory</li>
+                <li><strong>10%</strong> Cross-Cultural & Entrepreneurial Exposure</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: Five Urgent Reforms -->
+        <div class="slide">
+            <div class="slide-counter">6 / 15</div>
+            <h2>⚡ Five Urgent Reforms</h2>
+            <ul>
+                <li><span class="icon">💻</span><strong>STEM Integration:</strong> Coding from Primary 4, Design Thinking workshops</li>
+                <li><span class="icon">📊</span><strong>Assessment Revolution:</strong> Portfolio-based evaluation, digital badges</li>
+                <li><span class="icon">🎨</span><strong>Creativity Integration:</strong> Mandatory arts, debate programs</li>
+                <li><span class="icon">🏭</span><strong>Industry Tracks:</strong> Tech, Creative, Business, Health, AgriTech, Data Science</li>
+                <li><span class="icon">👨‍🏫</span><strong>Teacher Development:</strong> 40hrs/year training, industry immersion</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Question 3 Overview -->
+        <div class="slide">
+            <div class="slide-counter">7 / 15</div>
+            <h2>🌐 Q3: Bridging Formal & Informal Learning</h2>
+            <h3>The Current Disconnect</h3>
+            <p style="font-size: 1.3em; margin-bottom: 30px;">Two parallel universes: formal schools vs. vibrant tech hubs. They rarely interact.</p>
+            <div class="highlight-box">
+                <strong>Reality:</strong> Many successful entrepreneurs succeeded DESPITE formal education, not because of it. We must change this.
+            </div>
+        </div>
+
+        <!-- Slide 8: Integration Strategies -->
+        <div class="slide">
+            <div class="slide-counter">8 / 15</div>
+            <h2>🔗 Integrated Learning Ecosystem</h2>
+            <ul>
+                <li><strong>Credit Recognition:</strong> Bootcamp credits count toward school requirements</li>
+                <li><strong>Adopt-a-School:</strong> Every tech hub partners with 3-5 schools</li>
+                <li><strong>Dual Enrollment:</strong> Students spend 1 day/week at innovation spaces</li>
+                <li><strong>Community Hubs:</strong> One innovation hub per LGA (33 total)</li>
+                <li><strong>Mentorship at Scale:</strong> NYSC integration, virtual mentorship platform</li>
+                <li><strong>Innovation Challenges:</strong> Quarterly competitions with real prizes</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: Question 4 Partnerships -->
+        <div class="slide">
+            <div class="slide-counter">9 / 15</div>
+            <h2>🤝 Q4: Transformative Partnerships</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Oyo EdTech Alliance</h3>
+                    <p style="font-size: 1.1em;">Gov + Nigerian Tech (Andela, Flutterwave) + Global EdTech (Coursera, ALX)</p>
+                    
+                    <h3 style="margin-top: 30px;">University-Industry Corridors</h3>
+                    <p style="font-size: 1.1em;">UI, Lead City + Companies + Hubs for applied research</p>
+                </div>
+                <div>
+                    <h3>Global Skills Transfer</h3>
+                    <p style="font-size: 1.1em;">Diaspora Fellows + Virtual Experts + Development Agencies</p>
+                    
+                    <h3 style="margin-top: 30px;">Vocational Excellence</h3>
+                    <p style="font-size: 1.1em;">German Dual System model adapted for Oyo</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Wrap-Up 1 - Digital Passport -->
+        <div class="slide">
+            <div class="slide-counter">10 / 15</div>
+            <h2>🎯 ONE Catalytic Initiative</h2>
+            <h3>The Oyo Digital Learning Passport</h3>
+            <div class="highlight-box">
+                <strong>A lifelong learning resume for every citizen—from age 5 to retirement</strong>
+            </div>
+            <ul>
+                <li>Captures ALL learning: formal, informal, work, projects</li>
+                <li>AI-powered career guidance & opportunity matching</li>
+                <li>Solves skills mismatch & unemployment simultaneously</li>
+                <li>Enables personalized learning at scale</li>
+                <li>Creates perfect labor market information</li>
+            </ul>
+        </div>
+
+        <!-- Slide 11: Digital Passport Details -->
+        <div class="slide">
+            <div class="slide-counter">11 / 15</div>
+            <h2>📱 Digital Passport: How It Works</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-number">Year 1</span>
+                    <span class="stat-label">Pilot: 10K users, 5 LGAs</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">Year 2</span>
+                    <span class="stat-label">All schools & tertiary</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">Year 3</span>
+                    <span class="stat-label">Employer integration</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">Year 5</span>
+                    <span class="stat-label">Full state deployment</span>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <strong>Why This?</strong> It's the multiplier that enables ALL other reforms—measurement, accountability, personalization, equity, and economic opportunity.
+            </div>
+        </div>
+
+        <!-- Slide 12: Wrap-Up 2 Inclusion -->
+        <div class="slide">
+            <div class="slide-counter">12 / 15</div>
+            <h2>🌍 Ensuring Inclusive Transformation</h2>
+            <h3>The Five Pillars of Inclusion</h3>
+            <ul>
+                <li><strong>Universal Digital Access:</strong> Affordable internet & devices as a RIGHT</li>
+                <li><strong>Multilingual Services:</strong> Yoruba-first platforms, culturally relevant content</li>
+                <li><strong>Targeted Support:</strong> Girls, out-of-school youth, people with disabilities</li>
+                <li><strong>New Metrics:</strong> Measure equity gaps, not just averages</li>
+                <li><strong>Participatory Governance:</strong> Communities design solutions WITH us</li>
+            </ul>
+        </div>
+
+        <!-- Slide 13: Vulnerable Groups -->
+        <div class="slide">
+            <div class="slide-counter">13 / 15</div>
+            <h2>👥 Priority: Vulnerable Groups</h2>
+            <div class="two-column">
+                <div>
+                    <h3>For Girls & Women</h3>
+                    <li>60% of tech scholarships reserved</li>
+                    <li>Female role model programs</li>
+                    <li>Safe learning spaces</li>
+                    
+                    <h3 style="margin-top: 25px;">For Out-of-School Youth</h3>
+                    <li>Second chance accelerators</li>
+                    <li>Apprentice-to-employment</li>
+                </div>
+                <div>
+                    <h3>For People with Disabilities</h3>
+                    <li>Assistive tech centers</li>
+                    <li>Accessibility standards</li>
+                    <li>Disability-focused training</li>
+                    
+                    <h3 style="margin-top: 25px;">For Remote Communities</h3>
+                    <li>Solar-powered hubs</li>
+                    <li>Satellite connectivity</li>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Connections -->
+        <div class="slide">
+            <div class="slide-counter">14 / 15</div>
+            <h2>🔗 Connecting the Three Panels</h2>
+            <div class="framework-box">
+                <div class="framework-title">Education → Digital Economy</div>
+                Transformed education creates digitally literate population, produces coders, designers, entrepreneurs
+            </div>
+            <div class="framework-box">
+                <div class="framework-title">Education → Policy & Governance</div>
+                Requires public-private partnerships, flexible regulations, data-driven decision-making
+            </div>
+            <div class="framework-box">
+                <div class="framework-title">The Integration</div>
+                These three pillars MUST transform together. Education is the foundation; digital economy is the opportunity; governance is the enabler.
+            </div>
+        </div>
+
+        <!-- Slide 15: Closing -->
+        <div class="slide closing-slide">
+            <div class="slide-counter" style="color: white; background: rgba(255,255,255,0.2);">15 / 15</div>
+            <h2>The Time Is NOW</h2>
+            <div class="closing-statement">
+                "The workforce of tomorrow is being shaped in our classrooms today. We must ensure our youth are ready to build it."
+            </div>
+            <div class="call-to-action">
+                Let's build a Future-Ready Oyo State together—<br>
+                one student, one teacher, one community at a time.
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn">← Previous</button>
+            <button class="nav-btn" id="nextBtn">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        function showSlide(n) {
+            // Remove active class from all slides
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            
+            // Boundary checking
+            if (n >= totalSlides) {
+                currentSlide = totalSlides - 1;
+            } else if (n < 0) {
+                currentSlide = 0;
+            } else {
+                currentSlide = n;
+            }
+            
+            // Add active class to current slide
+            slides[currentSlide].classList.add('active');
+            
+            // Update buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (currentSlide === 0) {
+                prevBtn.disabled = true;
+            } else {
+                prevBtn.disabled = false;
+            }
+            
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.disabled = true;
+                nextBtn.textContent = 'End';
+            } else {
+                nextBtn.disabled = false;
+                nextBtn.textContent = 'Next →';
+            }
+        }
+        
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Previous button click
+            prevBtn.onclick = function(e) {
+                e.preventDefault();
+                showSlide(currentSlide - 1);
+            };
+            
+            // Next button click
+            nextBtn.onclick = function(e) {
+                e.preventDefault();
+                showSlide(currentSlide + 1);
+            };
+            
+            // Keyboard navigation
+            document.onkeydown = function(e) {
+                if (e.key === 'ArrowLeft') {
+                    showSlide(currentSlide - 1);
+                } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    showSlide(currentSlide + 1);
+                }
+            };
+            
+            // Initialize first slide
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
