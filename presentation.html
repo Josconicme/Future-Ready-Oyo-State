@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transforming Education for Oyo's Future</title>
+    <title>Oyo State Education Transformation</title>
     <style>
         * {
             margin: 0;
@@ -13,521 +13,833 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            background: linear-gradient(135deg, #1a3a6b 0%, #2c5aa0 100%);
+            overflow: hidden;
+            height: 100vh;
         }
         
         .presentation {
             width: 100%;
-            max-width: 1200px;
-            aspect-ratio: 16/9;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            height: 100vh;
             position: relative;
         }
         
         .slide {
-            display: none;
             width: 100%;
             height: 100%;
+            display: none;
             padding: 60px;
             position: absolute;
             top: 0;
             left: 0;
+            background: white;
+            animation: slideIn 0.5s ease-in-out;
         }
         
         .slide.active {
             display: flex;
             flex-direction: column;
-            animation: fadeIn 0.5s ease-in;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide-header {
+            background: linear-gradient(135deg, #2c5aa0 0%, #1a3a6b 100%);
+            color: white;
+            padding: 30px;
+            margin: -60px -60px 40px -60px;
+            border-bottom: 5px solid #ffc107;
         }
         
         .slide-title {
-            background: linear-gradient(135deg, #2c5aa0 0%, #1a3a6b 100%);
-            /* display: flex;  Removed to prevent always-on background */
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            padding: 80px;
-        }
-        
-        .slide-title h1 {
-            font-size: 3.5em;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .slide-title .subtitle {
-            font-size: 1.8em;
-            font-weight: 300;
-            margin-bottom: 20px;
-            opacity: 0.9;
-        }
-        
-        .slide-title .theme {
-            font-size: 1.3em;
-            font-style: italic;
-            padding: 20px 40px;
-            border: 2px solid white;
-            border-radius: 10px;
-            margin-top: 30px;
-        }
-        
-        h2 {
-            color: #2c5aa0;
             font-size: 2.5em;
-            margin-bottom: 40px;
-            border-bottom: 4px solid #2c5aa0;
-            padding-bottom: 15px;
+            margin-bottom: 10px;
+            font-weight: 700;
         }
         
-        h3 {
-            color: #4a4a4a;
-            font-size: 1.8em;
-            margin: 30px 0 20px 0;
+        .slide-subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            font-weight: 300;
         }
         
-        ul {
-            list-style: none;
+        .slide-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 20px;
         }
         
-        li {
-            font-size: 1.3em;
-            margin: 20px 0;
-            padding-left: 40px;
-            position: relative;
-            line-height: 1.6;
+        .content-section {
+            margin-bottom: 35px;
         }
         
-        li:before {
-            content: "▸";
+        .section-title {
             color: #2c5aa0;
-            font-size: 1.5em;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-left: 5px solid #ffc107;
+            padding-left: 15px;
+        }
+        
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .bullet-list li {
+            padding: 15px 0 15px 40px;
+            position: relative;
+            font-size: 1.1em;
+            line-height: 1.6;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .bullet-list li:before {
+            content: "▶";
+            color: #ffc107;
             position: absolute;
-            left: 0;
+            left: 10px;
+            font-size: 0.8em;
+        }
+        
+        .bullet-list li strong {
+            color: #2c5aa0;
         }
         
         .highlight-box {
-            background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
-            padding: 30px;
-            border-radius: 15px;
-            margin: 30px 0;
-            border-left: 6px solid #ffc107;
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .highlight-box strong {
+            color: #f57c00;
             font-size: 1.2em;
         }
         
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .stat-box {
+        .info-box {
             background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
+            border-left: 5px solid #2196f3;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
-        .stat-number {
-            font-size: 3em;
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .timeline:before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #2c5aa0;
+            z-index: 0;
+        }
+        
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .timeline-dot {
+            width: 40px;
+            height: 40px;
+            background: #ffc107;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1a3a6b;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .timeline-content {
+            font-size: 0.9em;
+            padding: 0 10px;
+        }
+        
+        .timeline-year {
             font-weight: bold;
             color: #2c5aa0;
-            display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
-        .stat-label {
-            font-size: 1.1em;
-            color: #4a4a4a;
-        }
-        
-        .navigation {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
             display: flex;
             gap: 15px;
-            z-index: 100;
+            z-index: 1000;
         }
         
-        .nav-btn {
+        .controls button {
             background: #2c5aa0;
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 30px;
-            cursor: pointer;
+            padding: 15px 30px;
             font-size: 1.1em;
-            transition: all 0.3s ease;
-            font-weight: 600;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
         
-        .nav-btn:hover {
+        .controls button:hover {
             background: #1a3a6b;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.4);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
         }
         
-        .nav-btn:disabled {
+        .controls button:disabled {
             background: #ccc;
             cursor: not-allowed;
             transform: none;
-            opacity: 0.5;
         }
         
         .slide-counter {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            background: rgba(44, 90, 160, 0.1);
-            padding: 10px 20px;
-            border-radius: 20px;
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(44, 90, 160, 0.9);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
             font-size: 1.1em;
-            color: #2c5aa0;
-            font-weight: bold;
-            z-index: 10;
-        }
-        
-        .icon {
-            font-size: 1.5em;
-            margin-right: 10px;
-        }
-        
-        .framework-box {
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            padding: 25px;
-            border-radius: 12px;
-            margin: 15px 0;
-            border-left: 5px solid #4caf50;
-        }
-        
-        .framework-title {
-            font-weight: bold;
-            color: #2e7d32;
-            font-size: 1.2em;
-            margin-bottom: 10px;
+            z-index: 1000;
         }
         
         .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 30px;
+            gap: 30px;
+            margin: 25px 0;
         }
         
-        .closing-slide {
+        .column-box {
+            background: #f5f5f5;
+            padding: 25px;
+            border-radius: 8px;
+            border-top: 4px solid #2c5aa0;
+        }
+        
+        .column-box h3 {
+            color: #2c5aa0;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .key-stat {
             background: linear-gradient(135deg, #2c5aa0 0%, #1a3a6b 100%);
             color: white;
-            justify-content: center;
-            align-items: center;
+            padding: 20px;
+            border-radius: 8px;
             text-align: center;
+            margin: 15px 0;
         }
         
-        .closing-slide h2 {
-            color: white;
-            border-bottom: 4px solid white;
-            font-size: 3em;
-        }
-        
-        .closing-statement {
-            font-size: 1.5em;
-            line-height: 1.8;
-            margin: 40px 0;
-            font-style: italic;
-        }
-        
-        .call-to-action {
-            font-size: 2em;
+        .key-stat .number {
+            font-size: 2.5em;
             font-weight: bold;
-            margin-top: 50px;
-            padding: 30px;
-            border: 3px solid white;
-            border-radius: 15px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .key-stat .label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .numbered-list {
+            counter-reset: item;
+            list-style: none;
+            padding: 0;
+        }
+
+        .numbered-list li {
+            counter-increment: item;
+            padding: 15px 0 15px 50px;
+            position: relative;
+            font-size: 1.1em;
+            line-height: 1.6;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .numbered-list li:before {
+            content: counter(item);
+            background: #ffc107;
+            color: #1a3a6b;
+            font-weight: bold;
+            position: absolute;
+            left: 10px;
+            top: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
 <body>
     <div class="presentation">
         <!-- Slide 1: Title -->
-        <div class="slide active slide-title">
-            <h1>Transforming Education</h1>
-            <div class="subtitle">Meeting the Demands of a Digital, Innovation-Driven Economy</div>
-            <div class="theme">Future-Ready Oyo State: Tech, Talent, and Transformation for a Thriving Tomorrow</div>
-        </div>
-
-        <!-- Slide 2: Context -->
-        <div class="slide">
-            <div class="slide-counter">2 / 15</div>
-            <h2>🎯 The Critical Reality</h2>
-            <div class="highlight-box">
-                <strong>"Education is not just one pillar of transformation—it is the FOUNDATION upon which all other pillars stand."</strong>
+        <div class="slide active">
+            <div class="slide-header">
+                <div class="slide-title">Transforming Education in Oyo State</div>
+                <div class="slide-subtitle">Practical Strategies for a Digital, Innovation-Driven Economy</div>
             </div>
-            <ul>
-                <li>The workforce of tomorrow is being shaped in classrooms TODAY</li>
-                <li>Future entrepreneurs are currently students</li>
-                <li>Tomorrow's tech-driven leaders are learning now</li>
-                <li>Without transformed education, our digital economy dreams remain aspirational</li>
-            </ul>
-        </div>
-
-        <!-- Slide 3: Question 1 Overview -->
-        <div class="slide">
-            <div class="slide-counter">3 / 15</div>
-            <h2>📱 Q1: Equitable Tech Integration</h2>
-            <h3>The Challenge</h3>
-            <p style="font-size: 1.3em; margin-bottom: 30px;">How can Oyo State integrate AI tutors and digital platforms without deepening inequalities?</p>
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <span class="stat-number">33</span>
-                    <span class="stat-label">Local Government Areas</span>
+            <div class="slide-content">
+                <div class="highlight-box">
+                    <strong>Program Theme:</strong> Future-Ready Oyo State: Tech, Talent, and Transformation for a Thriving Tomorrow
                 </div>
-                <div class="stat-box">
-                    <span class="stat-number">1</span>
-                    <span class="stat-label">Vision: Universal Access</span>
+                
+                <div class="content-section">
+                    <h2 class="section-title">The Foundation of Transformation</h2>
+                    <p style="font-size: 1.2em; line-height: 1.8; margin: 20px 0;">
+                        Education is not just one pillar of our transformation—it is the <strong style="color: #2c5aa0;">foundation upon which all other pillars stand</strong>. Without a transformed education system, our ambitions for a thriving digital economy remain aspirational.
+                    </p>
+                </div>
+
+                <div class="two-column">
+                    <div class="key-stat">
+                        <span class="number">33</span>
+                        <span class="label">Local Government Areas to Transform</span>
+                    </div>
+                    <div class="key-stat">
+                        <span class="number">5 Years</span>
+                        <span class="label">To Achieve Future-Ready Status</span>
+                    </div>
                 </div>
             </div>
-            <div class="highlight-box">
-                <strong>The Paradox:</strong> Technology can either be the great equalizer or the great divider. We must choose deliberately.
-            </div>
         </div>
 
-        <!-- Slide 4: Three-Layer Model -->
+        <!-- Slide 2: Question 1 - Tech Integration -->
         <div class="slide">
-            <div class="slide-counter">4 / 15</div>
-            <h2>🔧 Three-Layer Integration Model</h2>
-            <div class="framework-box">
-                <div class="framework-title">Layer 1: Infrastructure Foundation</div>
-                <li>Universal Connectivity Initiative (subsidized edu-data)</li>
-                <li>Lease-to-own tablet programs</li>
-                <li>Solar-powered digital learning centers in rural areas</li>
+            <div class="slide-header">
+                <div class="slide-title">Equitable Tech Integration</div>
+                <div class="slide-subtitle">Bridging the Digital Divide in Oyo State</div>
             </div>
-            <div class="framework-box">
-                <div class="framework-title">Layer 2: Content Democratization</div>
-                <li>AI tutors in Yoruba first, English second</li>
-                <li>Offline-capable learning platforms</li>
-                <li>Open Educational Resources (OER) for all schools</li>
-            </div>
-            <div class="framework-box">
-                <div class="framework-title">Layer 3: Teacher Capacity</div>
-                <li>Train 10,000 teachers in digital pedagogy (2 years)</li>
-                <li>AI co-teaching assistants for routine tasks</li>
-                <li>Incentives for skilled teachers in remote areas</li>
-            </div>
-        </div>
+            <div class="slide-content">
+                <div class="info-box">
+                    <strong>The Challenge:</strong> How can Oyo State integrate educational technology without deepening inequalities between urban centers like Ibadan and rural communities?
+                </div>
 
-        <!-- Slide 5: Question 2 Overview -->
-        <div class="slide">
-            <div class="slide-counter">5 / 15</div>
-            <h2>🎓 Q2: Urgent Structural Reforms</h2>
-            <h3>The Current Mismatch</h3>
-            <div class="highlight-box">
-                We're preparing students for jobs that are disappearing while new opportunities go unfilled.
-            </div>
-            <h3>The 70-20-10 Curriculum Revolution</h3>
-            <ul>
-                <li><strong>70%</strong> Project-Based, Experiential Learning</li>
-                <li><strong>20%</strong> Core Knowledge & Theory</li>
-                <li><strong>10%</strong> Cross-Cultural & Entrepreneurial Exposure</li>
-            </ul>
-        </div>
-
-        <!-- Slide 6: Five Urgent Reforms -->
-        <div class="slide">
-            <div class="slide-counter">6 / 15</div>
-            <h2>⚡ Five Urgent Reforms</h2>
-            <ul>
-                <li><span class="icon">💻</span><strong>STEM Integration:</strong> Coding from Primary 4, Design Thinking workshops</li>
-                <li><span class="icon">📊</span><strong>Assessment Revolution:</strong> Portfolio-based evaluation, digital badges</li>
-                <li><span class="icon">🎨</span><strong>Creativity Integration:</strong> Mandatory arts, debate programs</li>
-                <li><span class="icon">🏭</span><strong>Industry Tracks:</strong> Tech, Creative, Business, Health, AgriTech, Data Science</li>
-                <li><span class="icon">👨‍🏫</span><strong>Teacher Development:</strong> 40hrs/year training, industry immersion</li>
-            </ul>
-        </div>
-
-        <!-- Slide 7: Question 3 Overview -->
-        <div class="slide">
-            <div class="slide-counter">7 / 15</div>
-            <h2>🌐 Q3: Bridging Formal & Informal Learning</h2>
-            <h3>The Current Disconnect</h3>
-            <p style="font-size: 1.3em; margin-bottom: 30px;">Two parallel universes: formal schools vs. vibrant tech hubs. They rarely interact.</p>
-            <div class="highlight-box">
-                <strong>Reality:</strong> Many successful entrepreneurs succeeded DESPITE formal education, not because of it. We must change this.
-            </div>
-        </div>
-
-        <!-- Slide 8: Integration Strategies -->
-        <div class="slide">
-            <div class="slide-counter">8 / 15</div>
-            <h2>🔗 Integrated Learning Ecosystem</h2>
-            <ul>
-                <li><strong>Credit Recognition:</strong> Bootcamp credits count toward school requirements</li>
-                <li><strong>Adopt-a-School:</strong> Every tech hub partners with 3-5 schools</li>
-                <li><strong>Dual Enrollment:</strong> Students spend 1 day/week at innovation spaces</li>
-                <li><strong>Community Hubs:</strong> One innovation hub per LGA (33 total)</li>
-                <li><strong>Mentorship at Scale:</strong> NYSC integration, virtual mentorship platform</li>
-                <li><strong>Innovation Challenges:</strong> Quarterly competitions with real prizes</li>
-            </ul>
-        </div>
-
-        <!-- Slide 9: Question 4 Partnerships -->
-        <div class="slide">
-            <div class="slide-counter">9 / 15</div>
-            <h2>🤝 Q4: Transformative Partnerships</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Oyo EdTech Alliance</h3>
-                    <p style="font-size: 1.1em;">Gov + Nigerian Tech (Andela, Flutterwave) + Global EdTech (Coursera, ALX)</p>
+                <div class="content-section">
+                    <h2 class="section-title">Practical 3-Layer Approach</h2>
                     
-                    <h3 style="margin-top: 30px;">University-Industry Corridors</h3>
-                    <p style="font-size: 1.1em;">UI, Lead City + Companies + Hubs for applied research</p>
+                    <ul class="bullet-list">
+                        <li><strong>Layer 1: Basic Infrastructure</strong> - Partner with MTN, Airtel, and Glo for subsidized educational data packages. Start with 5 pilot LGAs in Year 1, expanding to all 33 by Year 3</li>
+                        <li><strong>Layer 2: Accessible Content</strong> - Develop offline-capable learning platforms with Yoruba language support. Pre-load tablets with curriculum-aligned content that works without internet</li>
+                        <li><strong>Layer 3: Teacher Training</strong> - Train 2,000 teachers annually in digital pedagogy, starting with urban centers then cascading to rural areas through master teacher networks</li>
+                    </ul>
                 </div>
-                <div>
-                    <h3>Global Skills Transfer</h3>
-                    <p style="font-size: 1.1em;">Diaspora Fellows + Virtual Experts + Development Agencies</p>
+
+                <div class="highlight-box">
+                    <strong>Realistic Timeline:</strong> Start with 100 schools in Year 1 (urban and rural mix), scale to 500 schools by Year 3, achieve state-wide coverage by Year 5
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Infrastructure Details -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Infrastructure Foundation</div>
+                <div class="slide-subtitle">Making Technology Accessible to All</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Practical Implementation Steps</h2>
                     
-                    <h3 style="margin-top: 30px;">Vocational Excellence</h3>
-                    <p style="font-size: 1.1em;">German Dual System model adapted for Oyo</p>
+                    <ul class="bullet-list">
+                        <li><strong>Community Learning Centers:</strong> Convert existing facilities (town halls, community centers) in each LGA into technology hubs with solar power backup</li>
+                        <li><strong>Device Sharing Programs:</strong> Start with 20 tablets per pilot school (not 1:1), shared in computer labs. More realistic than individual devices initially</li>
+                        <li><strong>Prepaid Data Vouchers:</strong> Monthly 5GB educational data vouchers for senior secondary students, subsidized through telco partnerships</li>
+                        <li><strong>Radio & TV Integration:</strong> Leverage existing NTA Ibadan and BCOS for educational broadcasts - works everywhere, no internet needed</li>
+                    </ul>
+                </div>
+
+                <div class="two-column">
+                    <div class="column-box">
+                        <h3>Year 1-2 Focus</h3>
+                        <p>• Basic infrastructure in 5 LGAs<br>
+                        • 100 schools connected<br>
+                        • 2,000 teachers trained<br>
+                        • Establish measurement baseline</p>
+                    </div>
+                    <div class="column-box">
+                        <h3>Year 3-5 Expansion</h3>
+                        <p>• Scale to all 33 LGAs<br>
+                        • 1,500+ schools included<br>
+                        • 10,000+ teachers trained<br>
+                        • Mobile learning units for remote areas</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 10: Wrap-Up 1 - Digital Passport -->
+        <!-- Slide 4: Curriculum Reform -->
         <div class="slide">
-            <div class="slide-counter">10 / 15</div>
-            <h2>🎯 ONE Catalytic Initiative</h2>
-            <h3>The Oyo Digital Learning Passport</h3>
-            <div class="highlight-box">
-                <strong>A lifelong learning resume for every citizen—from age 5 to retirement</strong>
+            <div class="slide-header">
+                <div class="slide-title">Urgent Curriculum Reforms</div>
+                <div class="slide-subtitle">Making Oyo Students Globally Competitive</div>
             </div>
-            <ul>
-                <li>Captures ALL learning: formal, informal, work, projects</li>
-                <li>AI-powered career guidance & opportunity matching</li>
-                <li>Solves skills mismatch & unemployment simultaneously</li>
-                <li>Enables personalized learning at scale</li>
-                <li>Creates perfect labor market information</li>
-            </ul>
-        </div>
+            <div class="slide-content">
+                <div class="info-box">
+                    <strong>The Reality:</strong> Nigeria's education system prepares students for jobs that no longer exist. We must align curriculum with emerging opportunities in technology and creative industries.
+                </div>
 
-        <!-- Slide 11: Digital Passport Details -->
-        <div class="slide">
-            <div class="slide-counter">11 / 15</div>
-            <h2>📱 Digital Passport: How It Works</h2>
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <span class="stat-number">Year 1</span>
-                    <span class="stat-label">Pilot: 10K users, 5 LGAs</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number">Year 2</span>
-                    <span class="stat-label">All schools & tertiary</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number">Year 3</span>
-                    <span class="stat-label">Employer integration</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number">Year 5</span>
-                    <span class="stat-label">Full state deployment</span>
-                </div>
-            </div>
-            <div class="highlight-box">
-                <strong>Why This?</strong> It's the multiplier that enables ALL other reforms—measurement, accountability, personalization, equity, and economic opportunity.
-            </div>
-        </div>
-
-        <!-- Slide 12: Wrap-Up 2 Inclusion -->
-        <div class="slide">
-            <div class="slide-counter">12 / 15</div>
-            <h2>🌍 Ensuring Inclusive Transformation</h2>
-            <h3>The Five Pillars of Inclusion</h3>
-            <ul>
-                <li><strong>Universal Digital Access:</strong> Affordable internet & devices as a RIGHT</li>
-                <li><strong>Multilingual Services:</strong> Yoruba-first platforms, culturally relevant content</li>
-                <li><strong>Targeted Support:</strong> Girls, out-of-school youth, people with disabilities</li>
-                <li><strong>New Metrics:</strong> Measure equity gaps, not just averages</li>
-                <li><strong>Participatory Governance:</strong> Communities design solutions WITH us</li>
-            </ul>
-        </div>
-
-        <!-- Slide 13: Vulnerable Groups -->
-        <div class="slide">
-            <div class="slide-counter">13 / 15</div>
-            <h2>👥 Priority: Vulnerable Groups</h2>
-            <div class="two-column">
-                <div>
-                    <h3>For Girls & Women</h3>
-                    <li>60% of tech scholarships reserved</li>
-                    <li>Female role model programs</li>
-                    <li>Safe learning spaces</li>
+                <div class="content-section">
+                    <h2 class="section-title">Five Practical Reforms</h2>
                     
-                    <h3 style="margin-top: 25px;">For Out-of-School Youth</h3>
-                    <li>Second chance accelerators</li>
-                    <li>Apprentice-to-employment</li>
-                </div>
-                <div>
-                    <h3>For People with Disabilities</h3>
-                    <li>Assistive tech centers</li>
-                    <li>Accessibility standards</li>
-                    <li>Disability-focused training</li>
-                    
-                    <h3 style="margin-top: 25px;">For Remote Communities</h3>
-                    <li>Solar-powered hubs</li>
-                    <li>Satellite connectivity</li>
+                    <ol class="numbered-list">
+                        <li><strong>Basic Coding from JSS1:</strong> Introduce Scratch programming (free, works offline). By SS3, students build simple websites and apps. No advanced AI needed - start with fundamentals</li>
+                        <li><strong>Project-Based Learning:</strong> Students tackle real Oyo problems - designing solutions for waste management in Ibadan, improving market systems in Oyo town, farm productivity in Saki</li>
+                        <li><strong>Practical STEM Labs:</strong> Equip 10 model schools per year with basic science equipment. Focus on hands-on experiments, not just theory</li>
+                        <li><strong>Entrepreneurship Education:</strong> Every SS2 student completes a mini-business project. Partner with local traders and businesses for mentorship</li>
+                        <li><strong>Skills-Based Assessment:</strong> Introduce portfolios alongside WAEC/NECO. Students showcase projects, not just exam scores</li>
+                    </ol>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 14: Connections -->
+        <!-- Slide 5: Specialized Tracks -->
         <div class="slide">
-            <div class="slide-counter">14 / 15</div>
-            <h2>🔗 Connecting the Three Panels</h2>
-            <div class="framework-box">
-                <div class="framework-title">Education → Digital Economy</div>
-                Transformed education creates digitally literate population, produces coders, designers, entrepreneurs
+            <div class="slide-header">
+                <div class="slide-title">Specialized Learning Tracks</div>
+                <div class="slide-subtitle">Aligned with Nigeria's Growth Sectors</div>
             </div>
-            <div class="framework-box">
-                <div class="framework-title">Education → Policy & Governance</div>
-                Requires public-private partnerships, flexible regulations, data-driven decision-making
-            </div>
-            <div class="framework-box">
-                <div class="framework-title">The Integration</div>
-                These three pillars MUST transform together. Education is the foundation; digital economy is the opportunity; governance is the enabler.
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">SS2-SS3 Specialization Options</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Technology & Digital Skills:</strong> Basic programming, web design, digital marketing - partnering with Ibadan tech hubs like Agidigbo FM Innovation Hub</li>
+                        <li><strong>Agri-Tech & Food Processing:</strong> Modern farming techniques, food preservation, value addition - critical for Oyo's agricultural economy</li>
+                        <li><strong>Creative Industries:</strong> Graphics design, video production, content creation - leveraging Nollywood's presence in Oyo</li>
+                        <li><strong>Business & Entrepreneurship:</strong> Practical business skills, financial literacy, market analysis - partnering with traders associations</li>
+                        <li><strong>Vocational & Technical:</strong> Strengthen existing technical schools with equipment and industry partnerships</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Implementation Approach:</strong> Start with 2-3 specialization tracks in 20 pilot secondary schools. Ensure each LGA has at least one specialized school by Year 5
+                </div>
             </div>
         </div>
 
-        <!-- Slide 15: Closing -->
-        <div class="slide closing-slide">
-            <div class="slide-counter" style="color: white; background: rgba(255,255,255,0.2);">15 / 15</div>
-            <h2>The Time Is NOW</h2>
-            <div class="closing-statement">
-                "The workforce of tomorrow is being shaped in our classrooms today. We must ensure our youth are ready to build it."
+        <!-- Slide 6: Bridging Formal & Informal -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Connecting Schools & Innovation Spaces</div>
+                <div class="slide-subtitle">Leveraging Existing Informal Learning Ecosystems</div>
             </div>
-            <div class="call-to-action">
-                Let's build a Future-Ready Oyo State together—<br>
-                one student, one teacher, one community at a time.
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Practical Bridging Strategies</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Adopt-a-School Program:</strong> Existing Ibadan tech hubs (Wennovation Hub, Co-Creation Hub, others) partner with 3-5 secondary schools each for quarterly workshops</li>
+                        <li><strong>Weekend Coding Clubs:</strong> Tech-skilled NYSC members run free Saturday coding sessions in schools and community centers</li>
+                        <li><strong>Industry Mentorship Days:</strong> Local businesses host students for quarterly career exposure visits - no need for expensive internships initially</li>
+                        <li><strong>Skills Recognition:</strong> Students earning Google Digital Skills, Microsoft certifications, or completing Coursera courses receive bonus points in school assessments</li>
+                        <li><strong>Community Innovation Challenges:</strong> Bi-annual competitions where students solve real problems with cash prizes sponsored by local businesses</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>Leveraging NYSC:</strong> Deploy tech-skilled corps members to schools as digital literacy tutors - costs only allowances, massive reach potential across all LGAs
+                </div>
             </div>
         </div>
 
-        <div class="navigation">
-            <button class="nav-btn" id="prevBtn">← Previous</button>
-            <button class="nav-btn" id="nextBtn">Next →</button>
+        <!-- Slide 7: Strategic Partnerships -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Transformative Partnerships</div>
+                <div class="slide-subtitle">Public-Private Collaboration for Education</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Realistic Partnership Models</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Telco Partnerships (MTN, Airtel, Glo):</strong> Subsidized data for education in exchange for future customer loyalty and CSR recognition</li>
+                        <li><strong>Local Tech Companies:</strong> Andela, Flutterwave alumni in Ibadan mentor students and offer internships to top performers</li>
+                        <li><strong>University Collaboration:</strong> UI, Lead City, Polytechnic Ibadan students serve as tutors and mentors in exchange for service credit</li>
+                        <li><strong>Manufacturing Sector:</strong> Oyo's factories and industries offer apprenticeships to technical school students - guaranteed employment pathway</li>
+                        <li><strong>Donor Support:</strong> Seek World Bank, DFID, or Mastercard Foundation funding for pilot programs - they're actively looking for education innovation in Nigeria</li>
+                    </ul>
+                </div>
+
+                <div class="two-column">
+                    <div class="column-box">
+                        <h3>What Works in Nigeria</h3>
+                        <p>• Lagos EKOEXCEL model<br>
+                        • Edo EdoBEST program<br>
+                        • Kaduna education reforms<br>
+                        • Learn from their successes</p>
+                    </div>
+                    <div class="column-box">
+                        <h3>What to Avoid</h3>
+                        <p>• Over-dependence on donations<br>
+                        • Copying foreign models wholesale<br>
+                        • Ignoring teacher buy-in<br>
+                        • Unrealistic timelines</p>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <!-- Slide 8: The Catalytic Initiative -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">One Catalytic Initiative</div>
+                <div class="slide-subtitle">The Oyo Education Progress Tracker</div>
+            </div>
+            <div class="slide-content">
+                <div class="info-box">
+                    <strong>If we could do only ONE thing:</strong> Create a simple digital system that tracks every student's learning journey and connects them to opportunities
+                </div>
+
+                <div class="content-section">
+                    <h2 class="section-title">What It Does (Simplified)</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Student Profiles:</strong> Every secondary student gets a basic profile tracking grades, skills learned, projects completed, certifications earned</li>
+                        <li><strong>Skills Mapping:</strong> Records both school performance AND external skills (coding bootcamps, apprenticeships, competitions won)</li>
+                        <li><strong>Opportunity Matching:</strong> When businesses post internships or scholarships, system matches qualified students automatically</li>
+                        <li><strong>Teacher Dashboard:</strong> Teachers see each student's strengths and areas needing support - enables personalized attention</li>
+                        <li><strong>Parent Access:</strong> Parents track their children's progress via SMS (doesn't require smartphones or internet)</li>
+                    </ul>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot">Y1</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Year 1</div>
+                            Pilot with 5,000 SS3 students in Ibadan
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">Y2</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Year 2</div>
+                            Expand to all secondary schools in 5 LGAs
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">Y3</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Year 3</div>
+                            State-wide for all secondary students
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">Y4</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Year 4</div>
+                            Add employer integration and job matching
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">Y5</div>
+                        <div class="timeline-content">
+                            <div class="timeline-year">Year 5</div>
+                            Include primary schools and skills providers
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Why This Works:</strong> It solves the skills-jobs mismatch, makes learning visible, creates accountability, and can be built with existing Nigerian tech capacity at reasonable cost
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Inclusive Transformation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Ensuring Inclusive Transformation</div>
+                <div class="slide-subtitle">Leaving No Community Behind</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Priority Groups & Practical Support</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Girls in STEM:</strong> Reserve 50% of technology training slots for girls. Provide female mentors from Ibadan tech community. Address safety concerns in innovation spaces</li>
+                        <li><strong>Rural Students:</strong> Mobile learning units visit remote schools quarterly. Radio broadcasts reach everywhere. Community centers become tech access points</li>
+                        <li><strong>Out-of-School Youth:</strong> 6-month skills accelerators in each LGA for dropouts - no school cert required, just aptitude test. Partner with artisan associations</li>
+                        <li><strong>Special Needs Students:</strong> At least one model inclusive school per senatorial district with assistive technology and trained special education teachers</li>
+                        <li><strong>Poor Households:</strong> Merit scholarships covering school fees, transport, and meals for talented students from low-income families</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>Measuring Inclusion:</strong> Track digital access, test scores, and opportunity access by gender, location, and income. Publish quarterly reports showing gaps - transparency drives accountability
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Realistic Budget & Funding -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Making It Financially Realistic</div>
+                <div class="slide-subtitle">Budgeting and Funding Strategy</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Estimated 5-Year Investment</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Basic Digital Infrastructure:</strong> ₦5-7 billion (tablets, community centers, connectivity) - seek World Bank education loan</li>
+                        <li><strong>Teacher Training:</strong> ₦2-3 billion (10,000 teachers over 5 years) - include in annual education budget allocation</li>
+                        <li><strong>Curriculum Development:</strong> ₦500 million-₦1 billion (content creation, assessment tools) - partner with donor agencies</li>
+                        <li><strong>Student Support Programs:</strong> ₦1-2 billion (scholarships, data subsidies) - corporate sponsorships and CSR funds</li>
+                        <li><strong>Innovation Hubs & Labs:</strong> ₦3-4 billion (33 LGA centers plus school labs) - PPP model with private sector</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Total Estimated Cost: ₦12-17 billion over 5 years</strong><br>
+                    That's ₦2.4-3.4 billion annually - approximately 20-25% increase in current education budget allocation
+                </div>
+
+                <div class="two-column">
+                    <div class="column-box">
+                        <h3>Funding Sources</h3>
+                        <p>• State education budget (60%)<br>
+                        • Development partners (20%)<br>
+                        • Private sector PPP (15%)<br>
+                        • CSR and donations (5%)</p>
+                    </div>
+                    <div class="column-box">
+                        <h3>Quick Wins (Low Cost)</h3>
+                        <p>• NYSC teacher deployment<br>
+                        • Radio/TV education programs<br>
+                        • Weekend coding clubs<br>
+                        • Existing infrastructure reuse</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Implementation Roadmap -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">5-Year Implementation Roadmap</div>
+                <div class="slide-subtitle">Phased, Realistic Approach</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Year-by-Year Plan</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Year 1 (Foundation):</strong> Establish baseline data, train first 2,000 teachers, launch 5 pilot LGAs, set up coordination office, secure initial partnerships, begin community centers</li>
+                        <li><strong>Year 2 (Expansion):</strong> Scale to 15 LGAs, roll out Progress Tracker system, introduce coding in pilot schools, establish LGA innovation hubs, train 2,000 more teachers</li>
+                        <li><strong>Year 3 (State-Wide Rollout):</strong> All 33 LGAs included, curriculum reforms in all secondary schools, full Progress Tracker deployment, establish specialized schools</li>
+                        <li><strong>Year 4 (Deepening):</strong> Focus on quality improvement, employer integrations active, scale successful innovations, add primary school elements, strengthen vocational programs</li>
+                        <li><strong>Year 5 (Sustainability):</strong> Full implementation across education system, transition to sustainable funding model, document lessons learned, prepare for next phase</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Critical Success Factors:</strong> Political will, consistent funding, teacher buy-in, community engagement, regular monitoring, willingness to adapt based on data
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Challenges & Mitigation -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Anticipated Challenges</div>
+                <div class="slide-subtitle">And How We'll Address Them</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Being Realistic About Obstacles</h2>
+                    
+                    <div class="two-column">
+                        <div class="column-box">
+                            <h3>Challenge 1: Funding Gaps</h3>
+                            <p><strong>Risk:</strong> Budget constraints and competing priorities<br><br>
+                            <strong>Mitigation:</strong> Start small with pilots, leverage NYSC and volunteers, seek development partner funding, phase implementation to match budget releases</p>
+                        </div>
+                        <div class="column-box">
+                            <h3>Challenge 2: Teacher Resistance</h3>
+                            <p><strong>Risk:</strong> Fear of technology replacing jobs, reluctance to change<br><br>
+                            <strong>Mitigation:</strong> Early engagement, show tech as tool not replacement, provide adequate training and support, create incentives for adoption</p>
+                        </div>
+                    </div>
+
+                    <div class="two-column" style="margin-top: 20px;">
+                        <div class="column-box">
+                            <h3>Challenge 3: Infrastructure Gaps</h3>
+                            <p><strong>Risk:</strong> Inconsistent power and internet in rural areas<br><br>
+                            <strong>Mitigation:</strong> Offline-capable content, solar power systems, radio/TV backup, mobile learning units, community-shared resources</p>
+                        </div>
+                        <div class="column-box">
+                            <h3>Challenge 4: Political Transitions</h3>
+                            <p><strong>Risk:</strong> New administration may abandon program<br><br>
+                            <strong>Mitigation:</strong> Secure multi-year funding commitments, create legal framework, build broad stakeholder ownership, show quick wins that build public support</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Key Learning from Other States:</strong> Lagos EKOEXCEL and Edo EdoBEST succeeded because they focused on basics first, involved teachers early, showed measurable results quickly, and maintained political continuity
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Measuring Success -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">How We'll Measure Success</div>
+                <div class="slide-subtitle">Clear, Trackable Indicators</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Key Performance Indicators (5-Year Targets)</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Digital Access:</strong> 80% of secondary students have regular access to digital learning tools (up from ~15% current estimate)</li>
+                        <li><strong>Teacher Capacity:</strong> 10,000 teachers trained in digital pedagogy and 21st-century skills</li>
+                        <li><strong>Student Skills:</strong> 50% of SS3 graduates have at least one verifiable digital skill certification (coding, digital literacy, etc.)</li>
+                        <li><strong>Learning Outcomes:</strong> 20% improvement in WAEC/NECO results, especially in STEM subjects</li>
+                        <li><strong>Employment/Entrepreneurship:</strong> 30% of graduates either employed, in tertiary education, or running businesses within 1 year</li>
+                        <li><strong>Gender Equity:</strong> Equal participation of girls in technology training programs (50% or higher)</li>
+                        <li><strong>Geographic Equity:</strong> All 33 LGAs have functional innovation/learning centers</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>Quarterly Reviews:</strong> Progress dashboard published every quarter showing performance by LGA, allowing for rapid course corrections and public accountability
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Call to Action -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Call to Action</div>
+                <div class="slide-subtitle">What Each Stakeholder Must Do</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">Roles and Responsibilities</h2>
+                    
+                    <ul class="bullet-list">
+                        <li><strong>Oyo State Government:</strong> Allocate minimum 23% of budget to education (UNESCO standard). Create Education Innovation Office. Fast-track approvals for partnerships. Champion the vision consistently</li>
+                        <li><strong>Private Sector:</strong> Adopt schools for mentorship. Offer internships and apprenticeships. Provide equipment donations or cost-sharing. Co-fund innovation hubs in your LGAs</li>
+                        <li><strong>Tech Community:</strong> Volunteer for weekend coding clubs. Host students at your hubs. Mentor young talent. Help develop local digital content</li>
+                        <li><strong>Teachers:</strong> Embrace technology as a tool. Participate in training programs. Share best practices with colleagues. Provide feedback on what works</li>
+                        <li><strong>Parents & Communities:</strong> Support children's learning. Attend parent forums. Hold schools accountable. Encourage girls to pursue technology</li>
+                        <li><strong>Development Partners:</strong> Provide technical and financial support. Share global best practices. Fund pilot programs. Build local capacity</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>The Promise:</strong> If we all commit to this agenda, in 5 years Oyo State will have an education system that is the envy of Nigeria and a model for Africa
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 15: Closing Vision -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Our Vision for 2030</div>
+                <div class="slide-subtitle">What Success Looks Like</div>
+            </div>
+            <div class="slide-content">
+                <div class="content-section">
+                    <h2 class="section-title">In Five Years, Oyo State Will Be...</h2>
+                    
+                    <ul class="bullet-list">
+                        <li>A state where <strong>every student</strong> has access to quality digital learning, regardless of location or family income</li>
+                        <li>A place where <strong>teachers are empowered</strong> with modern tools and continuous professional development</li>
+                        <li>A hub where <strong>innovation happens</strong> in every LGA through community learning centers and school-based projects</li>
+                        <li>A system where <strong>skills are recognized</strong> and connected directly to employment opportunities</li>
+                        <li>A model that <strong>other states study</strong> and replicate, making Oyo a leader in education transformation</li>
+                        <li>A society where <strong>no child is left behind</strong> - girls excel in STEM, rural students compete globally, special needs students are fully included</li>
+                    </ul>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #2c5aa0 0%, #1a3a6b 100%); color: white; padding: 40px; margin: 30px 0; border-radius: 10px; text-align: center;">
+                    <h2 style="color: white; font-size: 2em; margin-bottom: 20px;">The Time to Act is NOW</h2>
+                    <p style="font-size: 1.3em; line-height: 1.8;">
+                        The workforce of tomorrow is being shaped in our classrooms today. Every year we delay is a generation of students we fail to prepare. Let's transform Oyo State's education system together.
+                    </p>
+                </div>
+
+                <div class="info-box" style="text-align: center; font-size: 1.2em;">
+                    <strong>Future-Ready Oyo State:</strong> Tech, Talent, and Transformation for a Thriving Tomorrow
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 16: Q&A -->
+        <div class="slide">
+            <div class="slide-header">
+                <div class="slide-title">Questions & Discussion</div>
+                <div class="slide-subtitle">Let's Build This Together</div>
+            </div>
+            <div class="slide-content">
+                <div style="display: flex; align-items: center; justify-content: center; height: 100%; flex-direction: column;">
+                    <div style="font-size: 3em; color: #2c5aa0; margin-bottom: 30px;">💡 🤝 🚀</div>
+                    <h2 style="color: #2c5aa0; font-size: 2.5em; text-align: center; margin-bottom: 20px;">Thank You</h2>
+                    <p style="font-size: 1.3em; text-align: center; max-width: 800px; line-height: 1.8;">
+                        Your insights, questions, and commitment are essential to making this vision a reality. Let's discuss how we can work together to transform education in Oyo State.
+                    </p>
+                    
+                    <div style="margin-top: 50px; text-align: center;">
+                        <div style="background: #f5f5f5; padding: 30px; border-radius: 10px; display: inline-block;">
+                            <p style="font-size: 1.1em; color: #666; margin-bottom: 15px;"><strong>Contact Information:</strong></p>
+                            <p style="font-size: 1em; color: #333;">Oyo State Ministry of Education</p>
+                            <p style="font-size: 1em; color: #333;">Education Innovation Office</p>
+                            <p style="font-size: 1em; color: #2c5aa0; font-weight: bold; margin-top: 15px;">Together, We Build the Future</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">16</span>
+    </div>
+
+    <div class="controls">
+        <button id="prev-btn" onclick="prevSlide()">◀ Previous</button>
+        <button id="next-btn" onclick="nextSlide()">Next ▶</button>
     </div>
 
     <script>
@@ -535,73 +847,40 @@
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
         
+        document.getElementById('total-slides').textContent = totalSlides;
+        
         function showSlide(n) {
-            // Remove active class from all slides
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].classList.remove('active');
-            }
-            
-            // Boundary checking
-            if (n >= totalSlides) {
-                currentSlide = totalSlides - 1;
-            } else if (n < 0) {
-                currentSlide = 0;
-            } else {
-                currentSlide = n;
-            }
-            
-            // Add active class to current slide
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
             slides[currentSlide].classList.add('active');
             
-            // Update buttons
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
+            document.getElementById('current-slide').textContent = currentSlide + 1;
             
-            if (currentSlide === 0) {
-                prevBtn.disabled = true;
-            } else {
-                prevBtn.disabled = false;
-            }
-            
-            if (currentSlide === totalSlides - 1) {
-                nextBtn.disabled = true;
-                nextBtn.textContent = 'End';
-            } else {
-                nextBtn.disabled = false;
-                nextBtn.textContent = 'Next →';
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+        
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
             }
         }
         
-        // Wait for DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            // Previous button click
-            prevBtn.onclick = function(e) {
-                e.preventDefault();
+        function prevSlide() {
+            if (currentSlide > 0) {
                 showSlide(currentSlide - 1);
-            };
-            
-            // Next button click
-            nextBtn.onclick = function(e) {
-                e.preventDefault();
-                showSlide(currentSlide + 1);
-            };
-            
-            // Keyboard navigation
-            document.onkeydown = function(e) {
-                if (e.key === 'ArrowLeft') {
-                    showSlide(currentSlide - 1);
-                } else if (e.key === 'ArrowRight' || e.key === ' ') {
-                    e.preventDefault();
-                    showSlide(currentSlide + 1);
-                }
-            };
-            
-            // Initialize first slide
-            showSlide(0);
+            }
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
         });
+        
+        showSlide(0);
     </script>
 </body>
 </html>
